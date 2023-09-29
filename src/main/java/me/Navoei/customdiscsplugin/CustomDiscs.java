@@ -9,6 +9,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import de.maxhenkel.voicechat.api.BukkitVoicechatService;
 import me.Navoei.customdiscsplugin.command.CommandManager;
+import me.Navoei.customdiscsplugin.event.GoatHornEvents;
 import me.Navoei.customdiscsplugin.event.JukeBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -68,8 +69,10 @@ public final class CustomDiscs extends JavaPlugin {
             LOGGER.info("Failed to register CustomDiscs plugin");
         }
 
+        getServer().getPluginManager().registerEvents(new GoatHornEvents(), this);
         getServer().getPluginManager().registerEvents(new JukeBox(), this);
         getServer().getPluginManager().registerEvents(new HopperManager(), this);
+
         getCommand("customdisc").setExecutor(new CommandManager());
 
         musicDiscDistance = getConfig().getInt("music-disc-distance");

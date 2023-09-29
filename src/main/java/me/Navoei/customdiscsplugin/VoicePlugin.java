@@ -17,11 +17,17 @@ public class VoicePlugin implements VoicechatPlugin {
 
     public static String MUSIC_DISC_CATEGORY = "music_discs";
 
+    public static final String GOAT_HORN_CATEGORY = "goat_horns";
+
     public static VoicechatApi voicechatApi;
     @Nullable
     public static VoicechatServerApi voicechatServerApi;
     @Nullable
     public static VolumeCategory musicDiscs;
+
+    @Nullable
+    public static VolumeCategory goatHorns;
+
 
     /**
      * @return the unique ID for this voice chat plugin
@@ -61,6 +67,13 @@ public class VoicePlugin implements VoicechatPlugin {
                 .setIcon(getMusicDiscIcon())
                 .build();
         voicechatServerApi.registerVolumeCategory(musicDiscs);
+        goatHorns = voicechatServerApi.volumeCategoryBuilder()
+                .setId(GOAT_HORN_CATEGORY)
+                .setName("Goat Horns")
+                .setDescription("Goat horn volume")
+                .setIcon(getMusicDiscIcon())
+                .build();
+        voicechatServerApi.registerVolumeCategory(goatHorns);
 
     }
 
