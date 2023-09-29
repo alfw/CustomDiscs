@@ -2,6 +2,7 @@ package me.Navoei.customdiscsplugin.command;
 
 import me.Navoei.customdiscsplugin.command.SubCommands.CreateCommand;
 import me.Navoei.customdiscsplugin.command.SubCommands.DownloadCommand;
+import me.Navoei.customdiscsplugin.command.SubCommands.LoggingCommand;
 import me.Navoei.customdiscsplugin.command.SubCommands.SetRangeCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -23,6 +24,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         subCommands.add(new CreateCommand());
         subCommands.add(new DownloadCommand());
         subCommands.add(new SetRangeCommand());
+        subCommands.add(new LoggingCommand());
     }
 
     @Override
@@ -66,6 +68,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             }
             return arguments;
         }
+
 
         return null;
     }

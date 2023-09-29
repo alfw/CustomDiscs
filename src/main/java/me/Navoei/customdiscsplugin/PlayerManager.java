@@ -72,10 +72,15 @@ public class PlayerManager {
 
             de.maxhenkel.voicechat.api.audiochannel.AudioPlayer audioPlayer = playChannel(api, audioChannel, block, soundFilePath, playersInRange);
 
+            /** test
+
             for (ServerPlayer serverPlayer : playersInRange) {
                 Player bukkitPlayer = (Player) serverPlayer.getPlayer();
                 bukkitPlayer.sendActionBar(actionbarComponent);
             }
+
+            */
+
 
             if (audioPlayer == null) {
                 playerMap.remove(id);

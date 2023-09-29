@@ -64,6 +64,12 @@ public class JukeBox implements Listener{
                 Component songNameComponent = Objects.requireNonNull(event.getItem().getItemMeta().lore()).get(0).asComponent();
                 String songName = PlainTextComponentSerializer.plainText().serialize(songNameComponent);
 
+                if ( CustomDiscs.getInstance().logLocation) {
+                    CustomDiscs.getInstance().getServer().getLogger().info("Playing the song " + songName + " with range " + range + " at " + block.getLocation().toString());
+                }
+
+
+
                 TextComponent customActionBarSongPlaying = Component.text()
                         .content("Now Playing: " + songName)
                         .color(NamedTextColor.GOLD)

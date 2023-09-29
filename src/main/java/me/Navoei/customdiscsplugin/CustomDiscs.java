@@ -46,6 +46,8 @@ public final class CustomDiscs extends JavaPlugin {
     public float musicDiscMaxDistance;
     public float musicDiscVolume;
 
+    public boolean logLocation;
+
     @Override
     public void onEnable() {
 
@@ -75,6 +77,7 @@ public final class CustomDiscs extends JavaPlugin {
         musicDiscDistance = getConfig().getInt("music-disc-distance");
         musicDiscMaxDistance = getConfig().getInt("music-disc-max-distance");
         musicDiscVolume = Float.parseFloat(Objects.requireNonNull(getConfig().getString("music-disc-volume")));
+        logLocation = getConfig().getBoolean("logLocation");
 
         ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 

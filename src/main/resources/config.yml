@@ -11,3 +11,6 @@ music-disc-volume: 1
 
 #The maximum download size in megabytes.
 max-download-size: 50
+
+# Log the location and song name to console.
+logLocation: false
