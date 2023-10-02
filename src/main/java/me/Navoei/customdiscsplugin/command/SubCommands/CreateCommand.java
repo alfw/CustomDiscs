@@ -7,7 +7,6 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -19,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CreateCommand extends SubCommand {
@@ -156,6 +156,36 @@ public class CreateCommand extends SubCommand {
         } else {
             return sb.toString().substring(0, sb.length()-1);
         }
+    }
+
+
+    public List<String> onTabComplete(String[] args) {
+            List<String> arguments = new ArrayList<>();
+            File getDirectory = new File(CustomDiscs.getInstance().getDataFolder(), "musicdata");
+
+            if ( getDirectory.exists() && getDirectory.isDirectory()) {
+                // List all files in the directory
+                File[] files = getDirectory.listFiles();
+
+                // Define the file extensions you want to filter
+                String[] allowedExtensions = {".wav", ".mp3", ".flac"};
+
+                if( files != null){
+                    for (File file : files)  {
+                        if( file.isFile()) {
+                            String fileName = file.getName();
+                            String fileExtension = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+
+                            // Check if the file extension is in the allowedExtensions array
+                            if (Arrays.asList(allowedExtensions).contains(fileExtension)) {
+                                arguments.add(file.getName());
+                            }
+                        }
+                    }
+                    return arguments;
+                }
+            }
+            return null;
     }
 
 }

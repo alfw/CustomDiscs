@@ -1,9 +1,7 @@
 package me.Navoei.customdiscsplugin.command;
 
-import me.Navoei.customdiscsplugin.command.SubCommands.CreateCommand;
-import me.Navoei.customdiscsplugin.command.SubCommands.DownloadCommand;
-import me.Navoei.customdiscsplugin.command.SubCommands.LoggingCommand;
-import me.Navoei.customdiscsplugin.command.SubCommands.SetRangeCommand;
+import me.Navoei.customdiscsplugin.CustomDiscs;
+import me.Navoei.customdiscsplugin.command.SubCommands.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,6 +23,8 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         subCommands.add(new DownloadCommand());
         subCommands.add(new SetRangeCommand());
         subCommands.add(new LoggingCommand());
+        subCommands.add(new SetChannelCommand());
+        subCommands.add(new GiveCommand());
     }
 
     @Override
@@ -58,9 +58,9 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     public ArrayList<SubCommand> getSubCommands() {
         return subCommands;
     }
+
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-
         if (args.length == 1) {
             List<String> arguments = new ArrayList<>();
             for (int i = 0; i < getSubCommands().size(); i++) {
@@ -68,7 +68,14 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             }
             return arguments;
         }
-
+         
+        if( args.length <= 2) {
+            for (int i = 0; i < getSubCommands().size(); i++) {
+                if (args[0].equalsIgnoreCase(getSubCommands().get(i).getName())) {
+                    return getSubCommands().get(i).onTabComplete(args);
+                }
+            }
+        }
 
         return null;
     }

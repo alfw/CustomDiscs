@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Path;
+import java.util.Collections;
+import java.util.List;
 
 public class DownloadCommand extends SubCommand {
 
@@ -95,6 +97,17 @@ public class DownloadCommand extends SubCommand {
         } else {
             return "";
         }
+    }
+
+    @Override
+    public List<String> onTabComplete(String[] args) {
+        if( args.length == 2 && args[0].equalsIgnoreCase("download")) {
+            return Collections.singletonList("url");
+        }else if( args.length == 3 && args[0].equalsIgnoreCase("download")) {
+            return Collections.singletonList("<name>");
+        }
+
+        return  null;
     }
 
 }

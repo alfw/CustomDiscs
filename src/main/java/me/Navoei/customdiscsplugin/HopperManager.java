@@ -57,6 +57,20 @@ public class HopperManager implements Listener {
             range = Math.min(persistentDataContainer.get(customSoundRangeKey, PersistentDataType.FLOAT), CustomDiscs.getInstance().musicDiscMaxDistance);
         }
 
+        int channel = 1;
+        String category = VoicePlugin.MUSIC_DISC_CATEGORY;
+        NamespacedKey customSoundChannelKey = new NamespacedKey(customDiscs, "CustomSoundChannel");
+
+        if(persistentDataContainer.has(customSoundChannelKey, PersistentDataType.FLOAT)) {
+            Float fchannelFloat = persistentDataContainer.get(customSoundChannelKey, PersistentDataType.FLOAT);
+            channel = Math.round( fchannelFloat);
+        }
+
+        if ( channel == 2) {
+            category = VoicePlugin.MUSIC_DISC_CATEGORY_2;
+        }else if ( channel == 3) {
+            category = VoicePlugin.MUSIC_DISC_CATEGORY_3;
+        }
 
         if ( CustomDiscs.getInstance().logLocation) {
             CustomDiscs.getInstance().getServer().getLogger().info("Playing the song " + songName + " with range "+ range +" at " + event.getDestination().getLocation());
@@ -64,7 +78,7 @@ public class HopperManager implements Listener {
 
         Path soundFilePath = Path.of(customDiscs.getDataFolder().getPath(), "musicdata", soundFileName);
         assert VoicePlugin.voicechatServerApi != null;
-        playerManager.playLocationalAudio(VoicePlugin.voicechatServerApi, soundFilePath, event.getDestination().getLocation().getBlock(), customActionBarSongPlaying.asComponent(), range);
+        playerManager.playLocationalAudio(VoicePlugin.voicechatServerApi, soundFilePath, event.getDestination().getLocation().getBlock(), customActionBarSongPlaying.asComponent(), range, category);
 
     }
 

@@ -44,14 +44,15 @@ public class PlayerManager {
         });
     }
 
-    public void playLocationalAudio(VoicechatServerApi api, Path soundFilePath, Block block, Component actionbarComponent, float range) {
+    public void playLocationalAudio(VoicechatServerApi api, Path soundFilePath, Block block, Component actionbarComponent, float range, String category) {
         UUID id = UUID.nameUUIDFromBytes(block.getLocation().toString().getBytes());
 
         LocationalAudioChannel audioChannel = api.createLocationalAudioChannel(id, api.fromServerLevel(block.getWorld()), api.createPosition(block.getLocation().getX() + 0.5d, block.getLocation().getY() + 0.5d, block.getLocation().getZ() + 0.5d));
 
         if (audioChannel == null) return;
 
-        audioChannel.setCategory(VoicePlugin.MUSIC_DISC_CATEGORY);
+
+        audioChannel.setCategory(category);
         audioChannel.setDistance(range);
 
         AtomicBoolean stopped = new AtomicBoolean();

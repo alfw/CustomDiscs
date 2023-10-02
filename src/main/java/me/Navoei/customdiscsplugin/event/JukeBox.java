@@ -1,7 +1,6 @@
 package me.Navoei.customdiscsplugin.event;
 
 import me.Navoei.customdiscsplugin.CustomDiscs;
-import me.Navoei.customdiscsplugin.ParticleManager;
 import me.Navoei.customdiscsplugin.PlayerManager;
 import me.Navoei.customdiscsplugin.VoicePlugin;
 import net.kyori.adventure.text.Component;
@@ -56,6 +55,21 @@ public class JukeBox implements Listener{
                 range = Math.min(persistentDataContainer.get(customSoundRangeKey, PersistentDataType.FLOAT), CustomDiscs.getInstance().musicDiscMaxDistance);
             }
 
+            int channel = 1;
+            String category = VoicePlugin.MUSIC_DISC_CATEGORY;
+            NamespacedKey customSoundChannelKey = new NamespacedKey(customDiscs, "CustomSoundChannel");
+
+            if(persistentDataContainer.has(customSoundRangeKey, PersistentDataType.FLOAT)) {
+                Float fchannelFloat = persistentDataContainer.get(customSoundChannelKey, PersistentDataType.FLOAT);
+                channel = Math.round( fchannelFloat);
+            }
+
+            if ( channel == 2) {
+                category = VoicePlugin.MUSIC_DISC_CATEGORY_2;
+            }else if ( channel == 3) {
+                category = VoicePlugin.MUSIC_DISC_CATEGORY_3;
+            }
+
 
             Path soundFilePath = Path.of(customDiscs.getDataFolder().getPath(), "musicdata", soundFileName);
 
@@ -76,7 +90,7 @@ public class JukeBox implements Listener{
                         .build();
 
                 assert VoicePlugin.voicechatServerApi != null;
-                playerManager.playLocationalAudio(VoicePlugin.voicechatServerApi, soundFilePath, block, customActionBarSongPlaying.asComponent(), range);
+                playerManager.playLocationalAudio(VoicePlugin.voicechatServerApi, soundFilePath, block, customActionBarSongPlaying.asComponent(), range, category);
             } else {
                 player.sendMessage(ChatColor.RED + "Sound file not found.");
                 event.setCancelled(true);

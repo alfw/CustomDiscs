@@ -16,12 +16,18 @@ import java.util.Enumeration;
 public class VoicePlugin implements VoicechatPlugin {
 
     public static String MUSIC_DISC_CATEGORY = "music_discs";
+    public static String MUSIC_DISC_CATEGORY_2 = "discs_one";
+    public static String MUSIC_DISC_CATEGORY_3 = "discs_two";
 
     public static VoicechatApi voicechatApi;
     @Nullable
     public static VoicechatServerApi voicechatServerApi;
     @Nullable
     public static VolumeCategory musicDiscs;
+    @Nullable
+    public static VolumeCategory musicDiscs2;
+    @Nullable
+    public static VolumeCategory musicDiscs3;
 
     /**
      * @return the unique ID for this voice chat plugin
@@ -61,6 +67,22 @@ public class VoicePlugin implements VoicechatPlugin {
                 .setIcon(getMusicDiscIcon())
                 .build();
         voicechatServerApi.registerVolumeCategory(musicDiscs);
+
+        musicDiscs2 = voicechatServerApi.volumeCategoryBuilder()
+                .setId(MUSIC_DISC_CATEGORY_2)
+                .setName("Music Discs 2")
+                .setDescription("The volume of music discs")
+                .setIcon(getMusicDiscIcon())
+                .build();
+        voicechatServerApi.registerVolumeCategory(musicDiscs2);
+
+        musicDiscs3 = voicechatServerApi.volumeCategoryBuilder()
+                .setId(MUSIC_DISC_CATEGORY_3)
+                .setName("Music Discs 3")
+                .setDescription("The volume of music discs")
+                .setIcon(getMusicDiscIcon())
+                .build();
+        voicechatServerApi.registerVolumeCategory(musicDiscs3);
 
     }
 
